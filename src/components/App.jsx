@@ -1,7 +1,17 @@
+import userData from "../userData.json";
+import Profile from "./Profile/Profile";
+
 function App() {
+  const { username, tag, stats, avatar, location } = userData;
   return (
     <>
-      <p>It&#39;s my new project</p>
+      <Profile
+        name={username}
+        tag={tag}
+        location={location}
+        image={avatar}
+        stats={stats}
+      />
     </>
   );
 }
