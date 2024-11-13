@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import css from './Profile.module.css'
 
 const Profile = ({
   name,
@@ -8,25 +9,25 @@ const Profile = ({
   stats: { followers, views, likes },
 }) => {
   return (
-    <div>
-      <div>
-        <img src={image} alt="User photo" />
+    <div className={css.container}>
+      <div className={css.info}>
+        <img className={css.image} src={image} alt="User photo" />
         <p>{name}</p>
         <p>{tag}</p>
         <p>{location}</p>
       </div>
 
-      <ul>
+      <ul className={css.list}>
         <li>
-          <span>Followers</span>
+          <span className={css.subtitle}>Followers:</span>
           <span>{followers}</span>
         </li>
         <li>
-          <span>Views</span>
+          <span className={css.subtitle}>Views:</span>
           <span>{views}</span>
         </li>
         <li>
-          <span>Likes</span>
+          <span className={css.subtitle}>Likes:</span>
           <span>{likes}</span>
         </li>
       </ul>
