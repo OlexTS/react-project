@@ -1,5 +1,7 @@
 import userData from "../userData.json";
+import friends from '../friends.json'
 import Profile from "./Profile/Profile";
+import FriendList from "./FriendList/FriendList";
 
 function App() {
   const { username, tag, stats, avatar, location } = userData;
@@ -12,6 +14,7 @@ function App() {
         image={avatar}
         stats={stats}
       />
+      <FriendList friends={friends}/>
     </>
   );
 }
