@@ -1,0 +1,33 @@
+.table {
+  /* text-align: center; */
+  border: 4px solid rgb(37, 35, 35);
+  border-radius: 20px;
+  background-color: #d4d5d0;
+  padding: 20px;
+  margin: auto;
+  text-align: left;
+  min-width: 500px;
+  margin-bottom: 60px;
+}
+
+.thead {
+  /* display: flex; */
+  /* justify-content: center; */
+  font-size: 24px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: normal;
+  /* border: 2px solid black; */
+}
+
+.header {
+    border: 2px solid black;
+    background-color: hsla(35, 96%, 50%, 0.4);
+}
+.data{
+    padding: 5px 10px;
+    text-align: center;
+    margin: 0 auto;
+    border: 2px solid black;
+    background-color: hsla(135, 62%, 34%, 0.2);
+}
