@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Options from "./Options/Options";
 import Feedback from "./Feedback/Feedback";
 import Notification from "./Notification/Notification";
@@ -18,7 +18,17 @@ const initialState = {
 
 function App() {
   // const { username, tag, stats, avatar, location } = userData;
-  const [feedbackType, setFeedbackType] = useState(initialState);
+  const [feedbackType, setFeedbackType] = useState(() => {
+    const savedFeedback = localStorage.getItem("feedback");
+    if (savedFeedback) {
+      return JSON.parse(savedFeedback);
+    }
+    return initialState;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("feedback", JSON.stringify(feedbackType));
+  }, [feedbackType]);
 
   const { good, neutral, bad } = feedbackType;
   const onUpdateFeedback = (feedback) => {
@@ -28,9 +38,9 @@ function App() {
     });
   };
 
-  const onReset=() => {
-setFeedbackType({...feedbackType, good: 0, neutral: 0, bad: 0})
-  }
+  const onReset = () => {
+    setFeedbackType({ ...feedbackType, good: 0, neutral: 0, bad: 0 });
+  };
 
   const total = good + neutral + bad;
 
@@ -41,7 +51,12 @@ setFeedbackType({...feedbackType, good: 0, neutral: 0, bad: 0})
         Please leave your feedback about our service by selecting one of the
         options below.
       </p>
-      <Options changeFeedback={setFeedbackType} onUpdate={onUpdateFeedback} total={total} onReset={onReset}/>
+      <Options
+        changeFeedback={setFeedbackType}
+        onUpdate={onUpdateFeedback}
+        total={total}
+        onReset={onReset}
+      />
       {total ? (
         <Feedback feedback={feedbackType} total={total} />
       ) : (
