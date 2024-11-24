@@ -29,11 +29,15 @@ function App() {
     setContacts([{id: id, name, number}, ...contacts])
   }
 
+const deleteContact = (id) => {
+setContacts(contacts.filter(contact=>contact.id !== id))
+}
+
   return (
     <>
       <ContactForm onAddContacts={addContacts} />
       <SearchBox value={filter} onChange={changeFilter} />
-      <ContactList contacts={getFilteredContacts()} />
+      <ContactList contacts={getFilteredContacts()} onDelete={deleteContact}/>
     </>
   );
 }

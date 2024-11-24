@@ -1,11 +1,11 @@
-const Contact = ({ contacts }) => {
+const Contact = ({ contacts, onDelete }) => {
   return (
     <>
       {contacts.map(({ id, name, number }) => (
         <li key={id}>
           <p>{name}</p>
           {number}
-          <button>Delete</button>
+          <button onClick={()=>onDelete(id)}>Delete</button>
         </li>
       ))}
     </>

@@ -1,10 +1,10 @@
 import Contact from "../Contact/Contact"
 
-const ContactList = ({contacts}) => {
+const ContactList = ({contacts, onDelete}) => {
     
   return (
     <ul>
-        <Contact contacts={contacts}/>
+        <Contact contacts={contacts} onDelete={onDelete}/>
     </ul>
   )
 }
