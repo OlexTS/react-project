@@ -1,5 +1,16 @@
 import { useId } from "react";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const ContactSchema = Yup.object().shape({
+  contactname: Yup.string()
+    .min(3, "Your name is too short")
+    .max(30, "Your name is too long")
+    .required("This option is required"),
+  phonenumber: Yup.number("This fild must be a number type").required(
+    "Required"
+  ),
+});
 
 const ContactForm = ({ onAddContacts }) => {
   const nameId = useId();
@@ -17,13 +28,24 @@ const ContactForm = ({ onAddContacts }) => {
     actions.resetForm();
   };
   return (
-    <Formik initialValues={initialState} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialState}
+      onSubmit={handleSubmit}
+      validationSchema={ContactSchema}
+    >
       <Form>
-        <label htmlFor={nameId}>Name</label>
-        <Field type="text" name="contactname" id={nameId} />
+        <div>
+          <label htmlFor={nameId}>Name</label>
+          <Field type="text" name="contactname" id={nameId} />
+          <ErrorMessage name="contactname" component='span'/>
+        </div>
 
-        <label htmlFor={numberId}>Number</label>
-        <Field type="text" name="phonenumber" id={numberId} />
+        <div>
+          <label htmlFor={numberId}>Number</label>
+          <Field type="text" name="phonenumber" id={numberId} />
+          <ErrorMessage name="phonenumber" component='span'/>
+        </div>
+
         <button type="submit">Submit</button>
       </Form>
     </Formik>
