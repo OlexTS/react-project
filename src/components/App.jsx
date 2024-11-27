@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import ContactList from "./ContactList/ContactList";
 import SearchBox from "./SearchBox/SearchBox";
 import ContactForm from "./ContactForm/ContactForm";
@@ -11,9 +11,19 @@ const initialState = [
 ];
 
 function App() {
-  const id = useId();
-  const [contacts, setContacts] = useState(initialState);
+  const [contacts, setContacts] = useState(() => {
+    const items = JSON.parse(localStorage.getItem("contacts"));
+    if (items.length === 0) {
+      return initialState;
+    }
+    return items;
+  });
   const [filter, setFilter] = useState("");
+  const id = useId();
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const getFilteredContacts = () => {
     return contacts.filter((contact) =>
@@ -25,19 +35,19 @@ function App() {
     return setFilter(event.currentTarget.value);
   };
 
-  const addContacts = (name, number)=>{
-    setContacts([{id: id, name, number}, ...contacts])
-  }
+  const addContacts = (name, number) => {
+    setContacts([{ id: id, name, number }, ...contacts]);
+  };
 
-const deleteContact = (id) => {
-setContacts(contacts.filter(contact=>contact.id !== id))
-}
+  const deleteContact = (id) => {
+    setContacts(contacts.filter((contact) => contact.id !== id));
+  };
 
   return (
     <>
       <ContactForm onAddContacts={addContacts} />
       <SearchBox value={filter} onChange={changeFilter} />
-      <ContactList contacts={getFilteredContacts()} onDelete={deleteContact}/>
+      <ContactList contacts={getFilteredContacts()} onDelete={deleteContact} />
     </>
   );
 }
