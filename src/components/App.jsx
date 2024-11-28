@@ -1,15 +1,23 @@
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import SearchBar from "./SearchBar/SearchBar";
+import ImageGallery from "./ImageGallery/ImageGallery";
 
 const App = () => {
-  const [image, setImages] = useState([])
+  const [query, setQuery] = useState("");
+  const [images, setImages] = useState([]);
 
-  const onSearch = (value) =>{
 
-  }
+  const onSearch = (query) => {
+    setQuery(query);
+    
+  };
   return (
+    
     <div>
-      <SearchBar onSubmit={onSearch}/>
+      <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query}/>
+      <ImageGallery images={images}/>
+      <Toaster/>
     </div>
   );
 };
