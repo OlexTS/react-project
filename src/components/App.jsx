@@ -1,58 +1,80 @@
-import { useEffect, useId, useState } from "react";
-import ContactList from "./ContactList/ContactList";
-import SearchBox from "./SearchBox/SearchBox";
-import ContactForm from "./ContactForm/ContactForm";
+import { useState } from "react";
+import SearchBar from "./SearchBar/SearchBar";
 
-const initialState = [
-  { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-  { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-  { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-  { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-];
+const App = () => {
+  const [image, setImages] = useState([])
 
-function App() {
-  const [contacts, setContacts] = useState(() => {
-    const items = JSON.parse(localStorage.getItem("contacts"));
-    if (items.length === 0) {
-      return initialState;
-    }
-    return items;
-  });
-  const [filter, setFilter] = useState("");
-  const id = useId();
+  const onSearch = (value) =>{
 
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  const getFilteredContacts = () => {
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
-
-  const changeFilter = (event) => {
-    return setFilter(event.currentTarget.value);
-  };
-
-  const addContacts = (name, number) => {
-    setContacts([{ id: id, name, number }, ...contacts]);
-  };
-
-  const deleteContact = (id) => {
-    setContacts(contacts.filter((contact) => contact.id !== id));
-  };
-
+  }
   return (
-    <>
-      <ContactForm onAddContacts={addContacts} />
-      <SearchBox value={filter} onChange={changeFilter} />
-      <ContactList contacts={getFilteredContacts()} onDelete={deleteContact} />
-    </>
+    <div>
+      <SearchBar onSubmit={onSearch}/>
+    </div>
   );
-}
+};
 
 export default App;
+
+/**
+ * Third task
+ */
+
+// import { useEffect, useId, useState } from "react";
+// import ContactList from "./ContactList/ContactList";
+// import SearchBox from "./SearchBox/SearchBox";
+// import ContactForm from "./ContactForm/ContactForm";
+
+// const initialState = [
+//   { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+//   { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+//   { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+//   { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+// ];
+
+// function App() {
+//   const [contacts, setContacts] = useState(() => {
+//     const items = JSON.parse(localStorage.getItem("contacts"));
+//     if (items.length === 0) {
+//       return initialState;
+//     }
+//     return items;
+//   });
+//   const [filter, setFilter] = useState("");
+//   const id = useId();
+
+//   useEffect(() => {
+//     localStorage.setItem("contacts", JSON.stringify(contacts));
+//   }, [contacts]);
+
+//   const getFilteredContacts = () => {
+//     return contacts.filter((contact) =>
+//       contact.name.toLowerCase().includes(filter.toLowerCase())
+//     );
+//   };
+
+//   const changeFilter = (event) => {
+//     return setFilter(event.currentTarget.value);
+//   };
+
+//   const addContacts = (name, number) => {
+//     setContacts([{ id: id, name, number }, ...contacts]);
+//   };
+
+//   const deleteContact = (id) => {
+//     setContacts(contacts.filter((contact) => contact.id !== id));
+//   };
+
+//   return (
+//     <>
+//       <ContactForm onAddContacts={addContacts} />
+//       <SearchBox value={filter} onChange={changeFilter} />
+//       <ContactList contacts={getFilteredContacts()} onDelete={deleteContact} />
+//     </>
+//   );
+// }
+
+// export default App;
 
 /**
  * First and second tasks
