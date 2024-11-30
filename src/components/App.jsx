@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
 import SearchBar from "./SearchBar/SearchBar";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import searchImage from "../operations";
 import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
 import Loader from "./Loader/Loader";
+import ImageModal from "./ImageModal/ImageModal";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -13,6 +15,8 @@ const App = () => {
   const [totalImages, setTotalImages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedImg, setSelectedImg] = useState(null);
+  
 
   useEffect(() => {
     if (!query) return;
@@ -26,7 +30,7 @@ const App = () => {
             ? [...response.results]
             : [...prevImages, ...response.results]
         );
-       setTotalImages(response.total);
+        setTotalImages(response.total);
         if (!response.total) {
           return toast.error("Bad query");
         }
@@ -42,25 +46,40 @@ const App = () => {
 
   const onSearch = (query) => {
     setQuery(query);
-    setPage(1)
-    setImages([])
-
+    setPage(1);
+    setImages([]);
   };
 
   const loadNextPage = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const onOpenModal = (image) => {
+    setSelectedImg(image);
+    document.body.style.overflow = 'hidden'
+  };
+  const onCloseModal = () => {
+    setSelectedImg(null);
+    document.body.style.overflow = ''
+  };
+
   return (
-    
-        <div>
+    <div aria-hidden={!!selectedImg}>
       <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query} />
-      <ImageGallery images={images} />
+      <ImageGallery images={images} onImageClick={onOpenModal} />
       {isLoading ? (
         <Loader />
       ) : (
         images.length !== 0 &&
         images.length < totalImages && <LoadMoreBtn onLoadMore={loadNextPage} />
+      )}
+      {selectedImg && (
+        <ImageModal
+          isOpen={!!selectedImg}
+          onClose={onCloseModal}
+          imageUrl={selectedImg.cover_photo.urls.regular}
+          tag={selectedImg.tags.title}
+        />
       )}
       <Toaster />
     </div>
