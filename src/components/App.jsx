@@ -3,6 +3,8 @@ import toast, { Toaster } from "react-hot-toast";
 import SearchBar from "./SearchBar/SearchBar";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import searchImage from "../operations";
+import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
+import Loader from "./Loader/Loader";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -14,13 +16,17 @@ const App = () => {
 
   useEffect(() => {
     if (!query) return;
-    setIsLoading(false);
+    setIsLoading(true);
     setError(null);
     const fetchImages = async () => {
       try {
         const response = await searchImage(query, page);
-        setImages(response.results);
-        setTotalImages(response.total);
+        setImages((prevImages) =>
+          page === 1
+            ? [...response.results]
+            : [...prevImages, ...response.results]
+        );
+       setTotalImages(response.total);
         if (!response.total) {
           return toast.error("Bad query");
         }
@@ -36,13 +42,26 @@ const App = () => {
 
   const onSearch = (query) => {
     setQuery(query);
+    setPage(1)
+    setImages([])
+
   };
 
-  
+  const loadNextPage = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
   return (
-    <div>
+    
+        <div>
       <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query} />
       <ImageGallery images={images} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        images.length !== 0 &&
+        images.length < totalImages && <LoadMoreBtn onLoadMore={loadNextPage} />
+      )}
       <Toaster />
     </div>
   );
