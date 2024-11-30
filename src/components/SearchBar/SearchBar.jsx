@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-const SearchBar = ({ onSubmit, setQuery, query }) => {
+const SearchBar = ({ onSubmit}) => {
   const handleSubmit = (event) => {
     const { value } = event.target.elements.query;
     event.preventDefault();
@@ -10,12 +10,12 @@ const SearchBar = ({ onSubmit, setQuery, query }) => {
       return;
     }
     onSubmit(value);
-    setQuery("");
+    // setQuery("");
   };
 
-  const handleChange = (event) => {
-    setQuery(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setQuery(event.target.value);
+  // };
   return (
     <header>
       <form onSubmit={handleSubmit}>
@@ -25,8 +25,8 @@ const SearchBar = ({ onSubmit, setQuery, query }) => {
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
-          value={query}
-          onChange={handleChange}
+          // value={query}
+          // onChange={handleChange}
         />
         <button type="submit">Search</button>
       </form>

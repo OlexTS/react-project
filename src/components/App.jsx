@@ -1,23 +1,49 @@
-import { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import SearchBar from "./SearchBar/SearchBar";
 import ImageGallery from "./ImageGallery/ImageGallery";
+import searchImage from "../operations";
 
 const App = () => {
   const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalImages, setTotalImages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    if (!query) return;
+    setIsLoading(false);
+    setError(null);
+    const fetchImages = async () => {
+      try {
+        const response = await searchImage(query, page);
+        setImages(response.results);
+        setTotalImages(response.total);
+        if (!response.total) {
+          return toast.error("Bad query");
+        }
+      } catch (error) {
+        setError(error);
+        toast.error("Something went wrong. Try again!");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchImages();
+  }, [page, query, error]);
 
   const onSearch = (query) => {
     setQuery(query);
-    
   };
+
+  
   return (
-    
     <div>
-      <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query}/>
-      <ImageGallery images={images}/>
-      <Toaster/>
+      <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query} />
+      <ImageGallery images={images} />
+      <Toaster />
     </div>
   );
 };
