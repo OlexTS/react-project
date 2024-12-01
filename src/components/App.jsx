@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 import SearchBar from "./SearchBar/SearchBar";
@@ -16,6 +16,8 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedImg, setSelectedImg] = useState(null);
+
+  const lastGroupRef = useRef(null)
 
   useEffect(() => {
     if (!query) return;
@@ -38,10 +40,18 @@ const App = () => {
         toast.error("Something went wrong. Try again!");
       } finally {
         setIsLoading(false);
+        
       }
     };
+    
     fetchImages();
-  }, [page, query, error]);
+  }, [page, query]);
+
+  useEffect(() => {
+    if (lastGroupRef.current) {
+      lastGroupRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [images]);
 
   const onSearch = (query) => {
     setQuery(query);
@@ -66,6 +76,7 @@ const App = () => {
     <div aria-hidden={!!selectedImg} style={{position: 'relative', minHeight: '100vh'}}>
       <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query} />
       <ImageGallery images={images} onImageClick={onOpenModal} />
+      <div ref={lastGroupRef}></div>
       {isLoading ? (
         <Loader />
       ) : (
