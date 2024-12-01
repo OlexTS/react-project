@@ -63,7 +63,7 @@ const App = () => {
   };
 
   return (
-    <div aria-hidden={!!selectedImg}>
+    <div aria-hidden={!!selectedImg} style={{position: 'relative', minHeight: '100vh'}}>
       <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query} />
       <ImageGallery images={images} onImageClick={onOpenModal} />
       {isLoading ? (
