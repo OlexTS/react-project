@@ -16,7 +16,6 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedImg, setSelectedImg] = useState(null);
-  
 
   useEffect(() => {
     if (!query) return;
@@ -56,11 +55,11 @@ const App = () => {
 
   const onOpenModal = (image) => {
     setSelectedImg(image);
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = "hidden";
   };
   const onCloseModal = () => {
     setSelectedImg(null);
-    document.body.style.overflow = ''
+    document.body.style.overflow = "";
   };
 
   return (

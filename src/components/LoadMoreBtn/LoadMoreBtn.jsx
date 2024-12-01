@@ -1,9 +1,13 @@
+import css from "./LoadMoreBtn.module.css";
 
-const LoadMoreBtn = ({onLoadMore}) => {
+const LoadMoreBtn = ({ onLoadMore }) => {
   return (
-    <button type="button" onClick={()=>onLoadMore()}>Load More
-    </button>
-  )
-}
+    <div className={css.wrapper}>
+      <button className={css.button} type="button" onClick={() => onLoadMore()}>
+        Load More
+      </button>
+    </div>
+  );
+};
 
-export default LoadMoreBtn
+export default LoadMoreBtn;
