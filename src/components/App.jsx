@@ -1,102 +1,114 @@
-import { useEffect, useRef, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
 
-import SearchBar from "./SearchBar/SearchBar";
-import ImageGallery from "./ImageGallery/ImageGallery";
-import searchImage from "../operations";
-import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
-import Loader from "./Loader/Loader";
-import ImageModal from "./ImageModal/ImageModal";
 
-const App = () => {
-  const [query, setQuery] = useState("");
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalImages, setTotalImages] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedImg, setSelectedImg] = useState(null);
-
-  const lastGroupRef = useRef(null)
-
-  useEffect(() => {
-    if (!query) return;
-    setIsLoading(true);
-    setError(null);
-    const fetchImages = async () => {
-      try {
-        const response = await searchImage(query, page);
-        setImages((prevImages) =>
-          page === 1
-            ? [...response.results]
-            : [...prevImages, ...response.results]
-        );
-        setTotalImages(response.total);
-        if (!response.total) {
-          return toast.error("Bad query");
-        }
-      } catch (error) {
-        setError(error);
-        toast.error("Something went wrong. Try again!");
-      } finally {
-        setIsLoading(false);
-        
-      }
-    };
-    
-    fetchImages();
-  }, [page, query]);
-
-  useEffect(() => {
-    if (lastGroupRef.current) {
-      lastGroupRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, [images]);
-
-  const onSearch = (query) => {
-    setQuery(query);
-    setPage(1);
-    setImages([]);
-  };
-
-  const loadNextPage = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  const onOpenModal = (image) => {
-    setSelectedImg(image);
-    document.body.style.overflow = "hidden";
-  };
-  const onCloseModal = () => {
-    setSelectedImg(null);
-    document.body.style.overflow = "";
-  };
-
-  return (
-    <div aria-hidden={!!selectedImg} style={{position: 'relative', minHeight: '100vh'}}>
-      <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query} />
-      <ImageGallery images={images} onImageClick={onOpenModal} />
-      <div ref={lastGroupRef}></div>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        images.length !== 0 &&
-        images.length < totalImages && <LoadMoreBtn onLoadMore={loadNextPage} />
-      )}
-      {selectedImg && (
-        <ImageModal
-          isOpen={!!selectedImg}
-          onClose={onCloseModal}
-          imageUrl={selectedImg.cover_photo.urls.regular}
-          tag={selectedImg.tags.title}
-        />
-      )}
-      <Toaster />
-    </div>
-  );
-};
+function App() {
+  return <div>App</div>;
+}
 
 export default App;
+
+/**
+ * Fourth task
+ */
+
+// import { useEffect, useRef, useState } from "react";
+// import toast, { Toaster } from "react-hot-toast";
+
+// import SearchBar from "./SearchBar/SearchBar";
+// import ImageGallery from "./ImageGallery/ImageGallery";
+// import searchImage from "../operations";
+// import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
+// import Loader from "./Loader/Loader";
+// import ImageModal from "./ImageModal/ImageModal";
+
+// const App = () => {
+//   const [query, setQuery] = useState("");
+//   const [images, setImages] = useState([]);
+//   const [page, setPage] = useState(1);
+//   const [totalImages, setTotalImages] = useState(0);
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [selectedImg, setSelectedImg] = useState(null);
+
+//   const lastGroupRef = useRef(null)
+
+//   useEffect(() => {
+//     if (!query) return;
+//     setIsLoading(true);
+//     setError(null);
+//     const fetchImages = async () => {
+//       try {
+//         const response = await searchImage(query, page);
+//         setImages((prevImages) =>
+//           page === 1
+//             ? [...response.results]
+//             : [...prevImages, ...response.results]
+//         );
+//         setTotalImages(response.total);
+//         if (!response.total) {
+//           return toast.error("Bad query");
+//         }
+//       } catch (error) {
+//         setError(error);
+//         toast.error("Something went wrong. Try again!");
+//       } finally {
+//         setIsLoading(false);
+
+//       }
+//     };
+
+//     fetchImages();
+//   }, [page, query]);
+
+//   useEffect(() => {
+//     if (lastGroupRef.current) {
+//       lastGroupRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+//     }
+//   }, [images]);
+
+//   const onSearch = (query) => {
+//     setQuery(query);
+//     setPage(1);
+//     setImages([]);
+//   };
+
+//   const loadNextPage = () => {
+//     setPage((prevPage) => prevPage + 1);
+//   };
+
+//   const onOpenModal = (image) => {
+//     setSelectedImg(image);
+//     document.body.style.overflow = "hidden";
+//   };
+//   const onCloseModal = () => {
+//     setSelectedImg(null);
+//     document.body.style.overflow = "";
+//   };
+
+//   return (
+//     <div aria-hidden={!!selectedImg} style={{position: 'relative', minHeight: '100vh'}}>
+//       <SearchBar onSubmit={onSearch} setQuery={setQuery} query={query} />
+//       <ImageGallery images={images} onImageClick={onOpenModal} />
+//       <div ref={lastGroupRef}></div>
+//       {isLoading ? (
+//         <Loader />
+//       ) : (
+//         images.length !== 0 &&
+//         images.length < totalImages && <LoadMoreBtn onLoadMore={loadNextPage} />
+//       )}
+//       {selectedImg && (
+//         <ImageModal
+//           isOpen={!!selectedImg}
+//           onClose={onCloseModal}
+//           imageUrl={selectedImg.cover_photo.urls.regular}
+//           tag={selectedImg.tags.title}
+//         />
+//       )}
+//       <Toaster />
+//     </div>
+//   );
+// };
+
+// export default App;
 
 /**
  * Third task
