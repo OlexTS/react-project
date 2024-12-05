@@ -48,7 +48,8 @@ export const fetchMovieReviews = async (id) => {
  */
 
 // axios.defaults.baseURL = 'https://api.unsplash.com/';
-// axios.defaults.headers.common['Authorization'] = "Client-ID JdGcU6QJv1EKqr5Ph0kv-h4UpuugAtgbrSyOCMpW4KA";
+// const secretKey = import.meta.env.VITE_SECRET_KEY;
+// axios.defaults.headers.common['Authorization'] = `Client-ID ${secretKey}`;
 
 // const  searchImage = async (query, page) => {
 // const response = await axios.get(`search/collections?page=${page}&per_page=15&query=${query}`)
