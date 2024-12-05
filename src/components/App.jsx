@@ -1,8 +1,17 @@
+import { useEffect } from "react";
+import { fetchTrendingMovies } from "../operations";
+
 function App() {
+  useEffect(()=>{
+fetchTrendingMovies().then(data=>console.log(data));
+
+  }, [])
   return <div>App</div>;
 }
 
 export default App;
+
+
 
 /**
  * Fourth task
