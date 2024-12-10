@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { fetchTrendingMovies } from "../services/operations";
+
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import MoviesPage from "../pages/MoviesPage";
@@ -7,21 +6,22 @@ import MovieDetailsPage from "../pages/MovieDetailsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import Cast from "./Cast/Cast";
 import Reviews from "./Reviews/Reviews";
+import SharedLayout from "./SharedLayout/SharedLayout";
 
 function App() {
-  useEffect(() => {
-    fetchTrendingMovies().then((data) => console.log(data));
-  }, []);
+ 
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="movies" element={<MoviesPage />} />
-        <Route path="movies/:movieId" element={<MovieDetailsPage />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="movies" element={<MoviesPage />} />
+          <Route path="movies/:movieId" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
