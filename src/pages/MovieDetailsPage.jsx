@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchMovieDetails } from "../services/operations";
-import { useNavigate, useParams, useHistory } from "react-router-dom";
+import { useLocation, useNavigate, useParams} from "react-router-dom";
 import MovieInfo from "../components/MovieInfo/MovieInfo";
 import Loader from "../components/Loader/Loader";
 
 const MovieDetailsPage = () => {
   const [movieData, setMovieData] = useState(null);
-  const history = useHistory()
+  
 const navigate = useNavigate();
   const { movieId } = useParams();
-  console.log("movie", movieData);
+  const location = useLocation()
+  const goBackBtn = location.state ?? '/';
 
   useEffect(() => {
     (async () => {
@@ -25,7 +26,7 @@ const navigate = useNavigate();
   }, [movieId]);
 
   const handleGoBack = () => {
-    navigate(history)
+    navigate(goBackBtn)
   }
 
   if (!movieData) {
