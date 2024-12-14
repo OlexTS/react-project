@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchTrendingMovies } from "../services/operations";
 import MoviesList from "../components/MoviesList/MoviesList";
+import Loader from "../components/Loader/Loader";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -25,7 +26,12 @@ const HomePage = () => {
     })();
   }, [page]);
 
-  return <div><MoviesList movies={movies}/></div>;
+  return (
+    <div>
+      <h1>Trending movies today</h1>
+     {isLoading ? <Loader/> : <MoviesList movies={movies} />} 
+    </div>
+  );
 };
 
 export default HomePage;

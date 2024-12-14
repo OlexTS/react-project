@@ -1,16 +1,17 @@
-import { BASE_IMG_URL } from "../../services/variables";
+import { NavLink } from "react-router-dom";
+import { BASE_IMG_URL, DEFAULT_IMG_URL } from "../../services/variables";
 
 const MoviesList = ({ movies }) => {
-  
   return (
     <>
       {" "}
-      <h1>This title is about trending movies</h1>
       <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <h2>{movie.original_title}</h2>
-            <img src={`${BASE_IMG_URL}${movie.backdrop_path}`} alt="" />
+        {movies.map(({ id, poster_path, original_title }) => (
+          <li key={id}>
+            <h2>{original_title}</h2>
+            <NavLink to={`/movies/${id}`}>
+              <img src={poster_path ? BASE_IMG_URL + poster_path : DEFAULT_IMG_URL} alt="movie" />
+            </NavLink>
           </li>
         ))}
       </ul>
