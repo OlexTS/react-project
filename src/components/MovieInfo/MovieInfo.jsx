@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 const MovieInfo = ({ title, poster_path, vote, overview, genres, budget }) => {
   const location = useLocation();
-  console.log(location);
+  
   
   return (
     <div>
