@@ -10,7 +10,7 @@ const MovieDetailsPage = () => {
 const navigate = useNavigate();
   const { movieId } = useParams();
   const location = useLocation()
-  const goBackBtn = location.state ?? '/';
+  const goBackBtn = location.state?.from || '/';
 
   useEffect(() => {
     (async () => {
