@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchMovieCredits } from "../../services/operations";
 import { useParams } from "react-router-dom";
+import { fetchMovieCredits } from "../../services/operations";
 import { BASE_IMG_URL, DEFAULT_IMG_URL } from "../../services/variables";
 
 const Cast = () => {
@@ -17,7 +17,7 @@ const Cast = () => {
       }
     })();
   }, [movieId]);
-  console.log(casts);
+  
 
   return (
     <div>
