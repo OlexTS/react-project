@@ -1,35 +1,34 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { fetchMovieReviews } from "../../services/operations"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { fetchMovieReviews } from "../../services/operations";
 
 const Reviews = () => {
-const [reviews, setReviews] = useState([])
-const {movieId}= useParams()
+  const [reviews, setReviews] = useState([]);
+  const { movieId } = useParams();
 
-useEffect(()=>{
-  (async ()=>{
-    try {
-      const data = await fetchMovieReviews(movieId)
-      setReviews(data)
-    } catch (error) {
-      console.log(error);
-      
-    }
-  })();
-}, [movieId])
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchMovieReviews(movieId);
+        setReviews(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [movieId]);
 
   return (
     <div>
       <ul>
-        {reviews?.map(({id, author, content
-
-})=><li key={id}>
-<p>Author: {author}</p>
-<p>{content}</p>
-        </li>)}
+        {reviews?.map(({ id, author, content }) => (
+          <li key={id}>
+            <p>Author: {author}</p>
+            <p>{content}</p>
+          </li>
+        ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Reviews
+export default Reviews;

@@ -1,5 +1,6 @@
 
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import HomePage from "../pages/HomePage";
 import MoviesPage from "../pages/MoviesPage";
 import MovieDetailsPage from "../pages/MovieDetailsPage";
@@ -23,6 +24,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <Toaster/>
     </div>
   );
 }

@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
 import { fetchMovieDetails } from "../services/operations";
-import { useLocation, useNavigate, useParams} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MovieInfo from "../components/MovieInfo/MovieInfo";
 import Loader from "../components/Loader/Loader";
 
 const MovieDetailsPage = () => {
   const [movieData, setMovieData] = useState(null);
-  
-const navigate = useNavigate();
+
+  const navigate = useNavigate();
   const { movieId } = useParams();
-  const location = useLocation()
-  const goBackBtn = location.state?.from || '/';
+  const location = useLocation();
+  const goBackBtn = location.state?.from ?? '/movies';
 
   useEffect(() => {
     (async () => {
       try {
         const data = await fetchMovieDetails(movieId);
-        // console.log(data);
-
+       
         setMovieData(data);
       } catch (error) {
         console.log(error);
@@ -26,8 +25,8 @@ const navigate = useNavigate();
   }, [movieId]);
 
   const handleGoBack = () => {
-    navigate(goBackBtn)
-  }
+    navigate(goBackBtn);
+  };
 
   if (!movieData) {
     return (
@@ -37,11 +36,11 @@ const navigate = useNavigate();
     );
   }
 
-
-
   return (
     <div>
-      <button type="button" onClick={handleGoBack}>Go Back</button>
+      <button type="button" onClick={handleGoBack}>
+        Go Back
+      </button>
       <MovieInfo
         title={movieData.title}
         poster_path={movieData.poster_path}
