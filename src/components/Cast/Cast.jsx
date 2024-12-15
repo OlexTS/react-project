@@ -18,6 +18,9 @@ const Cast = () => {
     })();
   }, [movieId]);
   
+  if (!casts.length) {
+    return "This movie does not have any cast";
+  }
 
   return (
     <div>

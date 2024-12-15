@@ -17,6 +17,10 @@ const Reviews = () => {
     })();
   }, [movieId]);
 
+  if (!reviews.length) {
+    return "This movie does not have any reviews";
+  }
+  
   return (
     <div>
       <ul>

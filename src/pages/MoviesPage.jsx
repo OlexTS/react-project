@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchMovie from "../components/SearchMovie/SearchMovie";
 import { useSearchParams } from "react-router-dom";
 import { fetchSerchQuery } from "../services/operations";
 import toast from "react-hot-toast";
 import MoviesList from "../components/MoviesList/MoviesList";
+import LoadMoreBtn from "../components/LoadMoreBtn/LoadMoreBtn";
+import Loader from "../components/Loader/Loader";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -13,8 +15,12 @@ const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("query");
 
+  const lastMovieRef = useRef(null);
+
+  // Завантаження фільмів за запитом
   useEffect(() => {
     if (!searchQuery) {
+      setMovies([]); // Очистка списку, якщо запит порожній
       return;
     }
     (async () => {
@@ -22,7 +28,7 @@ const MoviesPage = () => {
         setIsLoading(true);
         const data = await fetchSerchQuery(searchQuery, page);
         if (!data.results.length) {
-          return toast.error("There are no movie found. Please try again");
+          return toast.error("There are no movies found. Please try again.");
         }
 
         setMovies((prevMovies) =>
@@ -37,14 +43,39 @@ const MoviesPage = () => {
     })();
   }, [page, searchQuery]);
 
+  // Прокрутка до останнього завантаженого елемента
+  useEffect(() => {
+    if (!isLoading && lastMovieRef.current) {
+      lastMovieRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [movies, isLoading]);
+
+  const onLoadMore = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
   const handleSearch = (query) => {
     setSearchParams({ query });
+    setPage(1); // Скидання сторінки при новому пошуковому запиті
+    setMovies([]); // Очистка списку фільмів
   };
+
+  const shouldShowLoadMore =
+  !isLoading && movies.length > 0 && movies.length < totalMovies;
 
   return (
     <div>
       <SearchMovie onSubmit={handleSearch} />
-      <MoviesList movies={movies}/>
+      {movies.length > 0 && (
+        <MoviesList movies={movies} lastMovieRef={lastMovieRef} />
+      )}
+      {isLoading && <Loader/>} 
+      {shouldShowLoadMore  && 
+        <LoadMoreBtn onLoadMore={onLoadMore} />
+      }
     </div>
   );
 };

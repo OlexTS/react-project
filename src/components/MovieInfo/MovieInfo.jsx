@@ -4,8 +4,7 @@ import { Suspense } from "react";
 
 const MovieInfo = ({ title, poster_path, vote, overview, genres, budget }) => {
   const location = useLocation();
-  
-  
+
   return (
     <div>
       <div>
@@ -24,10 +23,10 @@ const MovieInfo = ({ title, poster_path, vote, overview, genres, budget }) => {
       </div>
       <div>
         <h3>Additional info</h3>
-        <NavLink to="cast" state={{ from: location.state?.from || '/'}}>
+        <NavLink to="cast" state={{ from: location.state?.from || "/" }}>
           CAST
         </NavLink>
-        <NavLink to="reviews" state={{ from: location.state?.from || '/'}}>
+        <NavLink to="reviews" state={{ from: location.state?.from || "/" }}>
           REVIEWS
         </NavLink>
       </div>
