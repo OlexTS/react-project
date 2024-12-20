@@ -3,6 +3,7 @@ import { fetchTrendingMovies } from "../services/operations";
 import MoviesList from "../components/MoviesList/MoviesList";
 import Loader from "../components/Loader/Loader";
 import LoadMoreBtn from "../components/LoadMoreBtn/LoadMoreBtn";
+import ScrollToTop from "react-scroll-to-top";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -51,6 +52,7 @@ const HomePage = () => {
       <h1>Trending movies today</h1>
       {isLoading && <Loader />}
       <MoviesList movies={movies} lastMovieRef={lastMovieRef} />
+      <ScrollToTop smooth='true' color="#c59292"/>
       {movies.length < totalMovies && <LoadMoreBtn onLoadMore={onLoadMore} />}
     </div>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import SearchMovie from "../components/SearchMovie/SearchMovie";
 import { useSearchParams } from "react-router-dom";
+import ScrollToTop from "react-scroll-to-top";
 import { fetchSerchQuery } from "../services/operations";
 import toast from "react-hot-toast";
 import MoviesList from "../components/MoviesList/MoviesList";
@@ -75,6 +76,7 @@ const MoviesPage = () => {
       {movies.length > 0 && (
         <MoviesList movies={movies} lastMovieRef={lastMovieRef} />
       )}
+      <ScrollToTop smooth='true' color="#c59292"/>
       {isLoading && <Loader/>} 
       {shouldShowLoadMore  && 
         <LoadMoreBtn onLoadMore={onLoadMore} />
