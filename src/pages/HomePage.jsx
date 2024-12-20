@@ -12,7 +12,7 @@ const HomePage = () => {
   const [totalMovies, setTotalMovies] = useState(0);
   // const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  const lastMovieRef = useRef(null); // Референс для останнього елемента
+  const lastMovieRef = useRef(movies.length-1); // Референс для останнього елемента
 
   useEffect(() => {
     (async () => {
@@ -32,8 +32,8 @@ const HomePage = () => {
   }, [page]);
 
   useEffect(() => {
-    if(page===1){
-      return
+    if (page === 1) {
+      return;
     }
     if (!isLoading && lastMovieRef.current) {
       lastMovieRef.current.scrollIntoView({
@@ -49,10 +49,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Trending movies today</h1>
+      
       {isLoading && <Loader />}
       <MoviesList movies={movies} lastMovieRef={lastMovieRef} />
-      <ScrollToTop smooth='true' color="#c59292"/>
+      <ScrollToTop smooth="true" color="#c59292" />
       {movies.length < totalMovies && <LoadMoreBtn onLoadMore={onLoadMore} />}
     </div>
   );
