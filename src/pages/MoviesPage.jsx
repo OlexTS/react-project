@@ -45,13 +45,16 @@ const MoviesPage = () => {
 
   // Прокрутка до останнього завантаженого елемента
   useEffect(() => {
+    if(page===1){
+      return
+    }
     if (!isLoading && lastMovieRef.current) {
       lastMovieRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-  }, [movies, isLoading]);
+  }, [movies, isLoading, page]);
 
   const onLoadMore = () => {
     setPage((prevPage) => prevPage + 1);

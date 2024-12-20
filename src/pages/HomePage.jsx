@@ -9,6 +9,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalMovies, setTotalMovies] = useState(0);
+  // const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const lastMovieRef = useRef(null); // Референс для останнього елемента
 
@@ -30,13 +31,16 @@ const HomePage = () => {
   }, [page]);
 
   useEffect(() => {
+    if(page===1){
+      return
+    }
     if (!isLoading && lastMovieRef.current) {
       lastMovieRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-  }, [movies, isLoading]);
+  }, [movies, isLoading, page]);
 
   const onLoadMore = () => {
     setPage((prevPage) => prevPage + 1);

@@ -3,14 +3,10 @@ import { BASE_IMG_URL, DEFAULT_IMG_URL } from "../../services/variables";
 
 const MoviesList = ({ movies, lastMovieRef }) => {
   const location = useLocation();
-
   return (
     <ul>
       {movies.map(({ id, poster_path, original_title }, index) => (
-        <li
-          key={id}
-          ref={index === movies.length - 1 ? lastMovieRef : null} // Реф для останнього елемента
-        >
+        <li key={id} ref={index === movies.length - 1 ? lastMovieRef : null}>
           <h2>{original_title}</h2>
           <NavLink to={`/movies/${id}`} state={{ from: location }}>
             <img
