@@ -6,7 +6,7 @@ const MoviesList = ({ movies, lastMovieRef }) => {
   const location = useLocation();
   return (
     <>
-      <h1 className={css["main-title"]}>Trending movies today</h1>
+      
 
       <ul className={css.list}>
         {movies.map(({ id, poster_path, original_title }, index) => (

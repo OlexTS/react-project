@@ -1,5 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import css from "./SearchMovie.module.css";
 
 const SearchMovie = ({ onSubmit }) => {
   const [query, setQuery] = useState("");
@@ -14,16 +15,15 @@ const SearchMovie = ({ onSubmit }) => {
     if (query.trim() === "") {
       toast.error("Please enter a valid query");
     }
-    onSubmit(query)
+    onSubmit(query);
     setQuery("");
   };
 
-  
   return (
-    <div>
-      <h2>Search Movies</h2>
+    <div className={css.container}>
       <form onSubmit={handleSubmit}>
         <input
+          className={css.input}
           type="text"
           autoComplete="off"
           value={query}
@@ -31,7 +31,9 @@ const SearchMovie = ({ onSubmit }) => {
           autoFocus
           placeholder="Please enter movie's name"
         />
-      <button type="submit">Search</button>
+        <button type="submit" className={css.button}>
+          Search
+        </button>
       </form>
     </div>
   );

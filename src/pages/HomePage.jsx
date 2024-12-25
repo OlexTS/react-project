@@ -12,7 +12,7 @@ const HomePage = () => {
   const [totalMovies, setTotalMovies] = useState(0);
   // const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  const lastMovieRef = useRef(movies.length-1); // Референс для останнього елемента
+  const lastMovieRef = useRef(movies.length - 1); // Референс для останнього елемента
 
   useEffect(() => {
     (async () => {
@@ -49,7 +49,11 @@ const HomePage = () => {
 
   return (
     <div>
-      
+      <h1
+        style={{ textAlign: "center", padding: "20px", marginBottom: "20px" }}
+      >
+        Trending movies today
+      </h1>
       {isLoading && <Loader />}
       <MoviesList movies={movies} lastMovieRef={lastMovieRef} />
       <ScrollToTop smooth="true" color="#c59292" />
