@@ -1,25 +1,38 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { BASE_IMG_URL, DEFAULT_IMG_URL } from "../../services/variables";
 import { Suspense } from "react";
+import { BASE_IMG_URL, DEFAULT_IMG_URL } from "../../services/variables";
+import css from "./MovieInfo.module.css";
 
 const MovieInfo = ({ title, poster_path, vote, overview, genres, budget }) => {
   const location = useLocation();
 
   return (
     <div>
-      <div>
-        <img src={poster_path ? BASE_IMG_URL + poster_path : DEFAULT_IMG_URL} />
-      </div>
-      <div>
-        <h2>{title}</h2>
-        <p>Avarage vote {vote}</p>
-        <p>Overview {overview}</p>
-        <p>Budget {budget}</p>
-        <ul>
-          {genres?.map((genre) => (
-            <li key={genre.id}>{genre.name}</li>
-          ))}
-        </ul>
+      <div className={css.container}>
+        <div>
+          <img className={css.img}
+            src={poster_path ? BASE_IMG_URL + poster_path : DEFAULT_IMG_URL}
+          />
+        </div>
+        <div className={css.info}>
+          <h2 className={css.title}>{title}</h2>
+          <p className={css.text}>
+            <span className={css.span}>Avarage vote:</span> {vote}
+          </p>
+          <p className={css.text}>
+            <span className={css.span}>Overview:</span> {overview}
+          </p>
+          <p className={css.text}>
+            <span className={css.span}>Budget:</span>{" "}
+            {budget ? budget : "Unknown"}
+          </p>
+          <span className={css.span}>Genre:</span>
+          <ul>
+            {genres?.map((genre) => (
+              <li key={genre.id}>{genre.name}</li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div>
         <h3>Additional info</h3>
