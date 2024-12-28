@@ -4,6 +4,7 @@
   justify-content: space-evenly;
   gap: 10px;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .img {

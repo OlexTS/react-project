@@ -3,6 +3,7 @@ import { fetchMovieDetails } from "../services/operations";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MovieInfo from "../components/MovieInfo/MovieInfo";
 import Loader from "../components/Loader/Loader";
+import GoBackButton from "../components/GoBackButton/GoBackButton";
 
 const MovieDetailsPage = () => {
   const [movieData, setMovieData] = useState(null);
@@ -38,9 +39,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      <button type="button" onClick={handleGoBack}>
-        Go Back
-      </button>
+      <GoBackButton onClick={handleGoBack}/>
       <MovieInfo
         title={movieData.title}
         poster_path={movieData.poster_path}
