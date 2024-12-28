@@ -6,8 +6,6 @@ const MoviesList = ({ movies, lastMovieRef }) => {
   const location = useLocation();
   return (
     <>
-      
-
       <ul className={css.list}>
         {movies.map(({ id, poster_path, original_title }, index) => (
           <li
