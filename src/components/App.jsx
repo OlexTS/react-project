@@ -1,35 +1,93 @@
-
-import { Route, Routes } from "react-router-dom";
+import ContactList from "./ContactList/ContactList";
+import SearchBox from "./SearchBox/SearchBox";
+import ContactForm from "./ContactForm/ContactForm";
 import { Toaster } from "react-hot-toast";
-import HomePage from "../pages/HomePage";
-import MoviesPage from "../pages/MoviesPage";
-import MovieDetailsPage from "../pages/MovieDetailsPage";
-import NotFoundPage from "../pages/NotFoundPage";
-import Cast from "./Cast/Cast";
-import Reviews from "./Reviews/Reviews";
-import SharedLayout from "./SharedLayout/SharedLayout";
+
+
 
 function App() {
- 
+  // const [contacts, setContacts] = useState(() => {
+  //   const items = JSON.parse(localStorage.getItem("contacts"));
+  //   if (items.length === 0) {
+  //     return initialState;
+  //   }
+  //   return items;
+  // });
+  // const [filter, setFilter] = useState("");
+  // const id = useId();
+
+  // useEffect(() => {
+  //   localStorage.setItem("contacts", JSON.stringify(contacts));
+  // }, [contacts]);
+
+  // const getFilteredContacts = () => {
+  //   return contacts.filter((contact) =>
+  //     contact.name.toLowerCase().includes(filter.toLowerCase())
+  //   );
+  // };
+
+  // const changeFilter = (event) => {
+  //   return setFilter(event.currentTarget.value);
+  // };
+
+  // const addContacts = (name, number) => {
+  //   setContacts([{ id: id, name, number }, ...contacts]);
+  // };
+
+  // const deleteContact = (id) => {
+  //   setContacts(contacts.filter((contact) => contact.id !== id));
+  // };
+
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="movies" element={<MoviesPage />} />
-          <Route path="movies/:movieId" element={<MovieDetailsPage />}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
-          </Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+    <>
+      <ContactForm  />
+      <SearchBox  />
+      <ContactList />
       <Toaster/>
-    </div>
+    </>
   );
 }
 
 export default App;
+
+
+
+/**
+ * Fifth task
+ */
+
+
+// import { Route, Routes } from "react-router-dom";
+// import { Toaster } from "react-hot-toast";
+// import HomePage from "../pages/HomePage";
+// import MoviesPage from "../pages/MoviesPage";
+// import MovieDetailsPage from "../pages/MovieDetailsPage";
+// import NotFoundPage from "../pages/NotFoundPage";
+// import Cast from "./Cast/Cast";
+// import Reviews from "./Reviews/Reviews";
+// import SharedLayout from "./SharedLayout/SharedLayout";
+
+// function App() {
+ 
+//   return (
+//     <div>
+//       <Routes>
+//         <Route path="/" element={<SharedLayout />}>
+//           <Route index element={<HomePage />} />
+//           <Route path="movies" element={<MoviesPage />} />
+//           <Route path="movies/:movieId" element={<MovieDetailsPage />}>
+//             <Route path="cast" element={<Cast />} />
+//             <Route path="reviews" element={<Reviews />} />
+//           </Route>
+//           <Route path="*" element={<NotFoundPage />} />
+//         </Route>
+//       </Routes>
+//       <Toaster/>
+//     </div>
+//   );
+// }
+
+// export default App;
 
 /**
  * Fourth task
