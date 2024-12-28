@@ -1,0 +1,12 @@
+.list {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.img {
+  min-height: 300px;
+
+}

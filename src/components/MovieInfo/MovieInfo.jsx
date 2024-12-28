@@ -34,12 +34,12 @@ const MovieInfo = ({ title, poster_path, vote, overview, genres, budget }) => {
           </ul>
         </div>
       </div>
-      <div>
-        <h3>Additional info</h3>
-        <NavLink to="cast" state={{ from: location.state?.from || "/" }}>
+      <div className={css.addit}>
+        <h3 className={css.span}>Additional info</h3>
+        <NavLink className={css.link} to="cast" state={{ from: location.state?.from || "/" }}>
           CAST
         </NavLink>
-        <NavLink to="reviews" state={{ from: location.state?.from || "/" }}>
+        <NavLink className={css.link} to="reviews" state={{ from: location.state?.from || "/" }}>
           REVIEWS
         </NavLink>
       </div>

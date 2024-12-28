@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieCredits } from "../../services/operations";
 import { BASE_IMG_URL, DEFAULT_IMG_URL } from "../../services/variables";
+import css from "./Cast.module.css";
 
 const Cast = () => {
   const [casts, setCasts] = useState([]);
@@ -17,19 +18,20 @@ const Cast = () => {
       }
     })();
   }, [movieId]);
-  
+
   if (!casts.length) {
     return "This movie does not have any cast";
   }
 
   return (
-    <div>
-      <ul>
+    <div className={css.container}>
+      <ul className={css.list}>
         {casts?.map(({ id, character, name, profile_path }) => (
           <li key={id}>
             <img
+              className={css.img}
               src={profile_path ? BASE_IMG_URL + profile_path : DEFAULT_IMG_URL}
-              width={300}
+              width={200}
               alt="photo"
             />
             <p>{name}</p>
