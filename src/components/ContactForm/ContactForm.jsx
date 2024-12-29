@@ -11,17 +11,14 @@ const ContactSchema = Yup.object().shape({
     .min(3, "Your name is too short")
     .max(30, "Your name is too long")
     .required("This option is required"),
-  number: Yup.number("This fild must be a number type").required(
-    "Required"
-  ),
+  number: Yup.number("This fild must be a number type").required("Required"),
 });
 
 const ContactForm = () => {
   const nameId = useId();
   const numberId = useId();
   const dispatch = useDispatch();
-  const contacts = useSelector(useContacts)
-
+  const contacts = useSelector(useContacts);
 
   const initialState = {
     name: "",
@@ -29,12 +26,12 @@ const ContactForm = () => {
   };
 
   const handleSubmit = (values, actions) => {
-    if(contacts.some(contact=>contact.name===values.name)){
-      toast.error(`${values.name} is already in your contacts`)
-      return
+    if (contacts.some((contact) => contact.name === values.name)) {
+      toast.error(`${values.name} is already in your contacts`);
+      return;
     }
 
-    dispatch(addContact(values))
+    dispatch(addContact(values));
     actions.resetForm();
   };
   return (
@@ -47,13 +44,13 @@ const ContactForm = () => {
         <div>
           <label htmlFor={nameId}>Name</label>
           <Field type="text" name="name" id={nameId} />
-          <ErrorMessage name="name" component='span'/>
+          <ErrorMessage name="name" component="span" />
         </div>
 
         <div>
           <label htmlFor={numberId}>Number</label>
           <Field type="text" name="number" id={numberId} />
-          <ErrorMessage name="number" component='span'/>
+          <ErrorMessage name="number" component="span" />
         </div>
 
         <button type="submit">Submit</button>
@@ -64,12 +61,9 @@ const ContactForm = () => {
 
 export default ContactForm;
 
-
-
 /**
  * Third task
  */
-
 
 // import { useId } from "react";
 // import { Field, Form, Formik, ErrorMessage } from "formik";
