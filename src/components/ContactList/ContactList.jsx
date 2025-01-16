@@ -1,20 +1,18 @@
-import { useSelector } from "react-redux"
-import Contact from "../Contact/Contact"
-import { selectFilteredContacts } from "../../redux/selectors"
+import { useSelector } from "react-redux";
+import Contact from "../Contact/Contact";
+import { selectFilteredContacts } from "../../redux/selectors";
 
 const ContactList = () => {
-    const contacts = useSelector(selectFilteredContacts)
-    
-    
+  const contacts = useSelector(selectFilteredContacts);
+
   return (
     <ul>
-        <Contact contacts={contacts} />
+      <Contact contacts={contacts} />
     </ul>
-  )
-}
+  );
+};
 
-export default ContactList
-
+export default ContactList;
 
 /**
  * Third task
@@ -23,7 +21,7 @@ export default ContactList
 // import Contact from "../Contact/Contact"
 
 // const ContactList = ({contacts, onDelete}) => {
-    
+
 //   return (
 //     <ul>
 //         <Contact contacts={contacts} onDelete={onDelete}/>
