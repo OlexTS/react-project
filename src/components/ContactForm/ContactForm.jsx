@@ -1,10 +1,10 @@
 import { useId } from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { useContacts } from "../../redux/selectors";
-import { addContact } from "../../redux/contactsSlice";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "../../redux/contactsOps";
+import { selectContacts } from "../../redux/selectors";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -18,7 +18,7 @@ const ContactForm = () => {
   const nameId = useId();
   const numberId = useId();
   const dispatch = useDispatch();
-  const contacts = useSelector(useContacts);
+  const contacts = useSelector(selectContacts);
 
   const initialState = {
     name: "",
