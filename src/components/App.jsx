@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import ContactList from "./ContactList/ContactList";
-import SearchBox from "./SearchBox/SearchBox";
-import ContactForm from "./ContactForm/ContactForm";
-import { Toaster } from "react-hot-toast";
+// import ContactList from "./ContactList/ContactList";
+// import SearchBox from "./SearchBox/SearchBox";
+// import ContactForm from "./ContactForm/ContactForm";
+// import { Toaster } from "react-hot-toast";
 import { fetchContacts } from "../redux//contacts/contactsOps";
+import RegistrationForm from "./RegistrationForm/RegistrationForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -13,10 +14,11 @@ function App() {
   },[dispatch])
   return (
     <>
-      <ContactForm />
+      {/* <ContactForm />
       <SearchBox />
       <ContactList />
-      <Toaster />
+      <Toaster /> */}
+      <RegistrationForm/>
     </>
   );
 }
