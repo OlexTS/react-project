@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 // import { Toaster } from "react-hot-toast";
 import { fetchContacts } from "../redux//contacts/contactsOps";
 import RegistrationForm from "./RegistrationForm/RegistrationForm";
+import LoginForm from "./LoginForm/LoginForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function App() {
       <ContactList />
       <Toaster /> */}
       <RegistrationForm/>
+      <LoginForm/>
     </>
   );
 }

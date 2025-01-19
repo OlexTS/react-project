@@ -3,16 +3,16 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://connections-api.goit.global/";
 
-const setAuthHeader = token => {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
-}
+const setAuthHeader = (token) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
 export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     try {
       const response = await axios.post("users/signup", user);
-      setAuthHeader(response.data.token)
+      setAuthHeader(response.data.token);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -20,12 +20,12 @@ export const register = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk('auth/login', async (user, thunkAPI)=>{
+export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
-    const response = await axios.post('users/login', user);
+    const response = await axios.post("users/login", user);
     setAuthHeader(response.data.token);
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message)
+    return thunkAPI.rejectWithValue(error.message);
   }
-})
+});
