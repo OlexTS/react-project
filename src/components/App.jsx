@@ -4,19 +4,22 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import RegistrationPage from "../pages/RegistrationPage";
 import Layout from "./Layout/Layout";
+import LoginPage from "../pages/LoginPage";
+import ContactsPage from "../pages/ContactsPage";
+import { refreshUser } from "../redux/auth/authOps";
 
 function App() {
-  // const dispatch = useDispatch();
-  // useEffect(()=>{
-  //   dispatch()
-  // },[dispatch])
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(refreshUser())
+  },[dispatch])
   return (
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route index element={<HomePage />} />
         <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/login" element={<RegistrationPage />} />
-        <Route path="/contacts" element={<RegistrationPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
       </Route>
     </Routes>
   );

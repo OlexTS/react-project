@@ -12,12 +12,12 @@ const initialState = {
 const LoginForm = () => {
     const dispatch = useDispatch();
 
-    const handleSubmit = (values)=>{
+    const handleSubmit = (values, {resetForm})=>{
     dispatch(login({
         email: values.email,
         password: values.password
     }))
-   
+   resetForm()
     }
     return (
     <Formik initialValues={initialState} onSubmit={handleSubmit}>
