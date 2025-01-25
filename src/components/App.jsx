@@ -1,31 +1,60 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-// import ContactList from "./ContactList/ContactList";
-// import SearchBox from "./SearchBox/SearchBox";
-// import ContactForm from "./ContactForm/ContactForm";
-// import { Toaster } from "react-hot-toast";
-import { fetchContacts } from "../redux//contacts/contactsOps";
+import { Route, Routes } from "react-router-dom";
+
 import RegistrationForm from "./RegistrationForm/RegistrationForm";
 import LoginForm from "./LoginForm/LoginForm";
+import HomePage from "../pages/HomePage";
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(fetchContacts())
-  },[dispatch])
+  // const dispatch = useDispatch();
+  // useEffect(()=>{
+  //   dispatch()
+  // },[dispatch])
   return (
-    <>
-      {/* <ContactForm />
-      <SearchBox />
-      <ContactList />
-      <Toaster /> */}
-      <RegistrationForm/>
-      <LoginForm/>
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage/>}/>
+
+      
+      
+    </Routes>
   );
 }
 
 export default App;
+
+
+/**
+ *  Seven task
+ */
+
+// import { useEffect } from "react";
+// import { useDispatch } from "react-redux";
+// // import ContactList from "./ContactList/ContactList";
+// // import SearchBox from "./SearchBox/SearchBox";
+// // import ContactForm from "./ContactForm/ContactForm";
+// // import { Toaster } from "react-hot-toast";
+// import { fetchContacts } from "../redux//contacts/contactsOps";
+// import RegistrationForm from "./RegistrationForm/RegistrationForm";
+// import LoginForm from "./LoginForm/LoginForm";
+
+// function App() {
+//   const dispatch = useDispatch();
+//   useEffect(()=>{
+//     dispatch(fetchContacts())
+//   },[dispatch])
+//   return (
+//     <>
+//       {/* <ContactForm />
+//       <SearchBox />
+//       <ContactList />
+//       <Toaster /> */}
+//       <RegistrationForm/>
+//       <LoginForm/>
+//     </>
+//   );
+// }
+
 
 
 
