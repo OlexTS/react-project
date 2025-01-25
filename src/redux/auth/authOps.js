@@ -54,6 +54,7 @@ export const refreshUser = createAsyncThunk(
       return thunkAPI.rejectWithValue("User is not login");
     }
     try {
+      setAuthHeader(persistedToken);
       const response = await axios.get("users/current");
       return response.data;
     } catch (error) {
