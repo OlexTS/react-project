@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-
-import RegistrationForm from "./RegistrationForm/RegistrationForm";
-import LoginForm from "./LoginForm/LoginForm";
 import HomePage from "../pages/HomePage";
+import RegistrationPage from "../pages/RegistrationPage";
+import Layout from "./Layout/Layout";
 
 function App() {
   // const dispatch = useDispatch();
@@ -13,16 +12,17 @@ function App() {
   // },[dispatch])
   return (
     <Routes>
-      <Route path="/" element={<HomePage/>}/>
-
-      
-      
+      <Route path="/" element={<Layout/>}>
+        <Route index element={<HomePage />} />
+        <Route path="/register" element={<RegistrationPage />} />
+        <Route path="/login" element={<RegistrationPage />} />
+        <Route path="/contacts" element={<RegistrationPage />} />
+      </Route>
     </Routes>
   );
 }
 
 export default App;
-
 
 /**
  *  Seven task
@@ -54,10 +54,6 @@ export default App;
 //     </>
 //   );
 // }
-
-
-
-
 
 /**
  * Sixth task
