@@ -8,22 +8,51 @@ import LoginPage from "../pages/LoginPage";
 import ContactsPage from "../pages/ContactsPage";
 import { refreshUser } from "../redux/auth/authOps";
 import useAuth from "../hooks/useAuth";
+import PrivateRoute from "./PrivateRoute";
+import RestrictedRoute from "./RestrictedRoute";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
+  
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
   return (
     <>
+    <Toaster/>
       {!isRefreshing && (
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/contacts" element={<ContactsPage />} />
+            <Route
+              path="/register"
+              element={
+                <RestrictedRoute
+                  redirectTo="/login"
+                  component={<RegistrationPage />}
+                />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<LoginPage />}
+                />
+              }
+            />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={<ContactsPage />}
+                />
+              }
+            />
           </Route>
         </Routes>
       )}

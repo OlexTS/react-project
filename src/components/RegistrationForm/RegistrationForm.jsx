@@ -1,4 +1,5 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
+// import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { register } from "../../redux/auth/authOps";
@@ -25,6 +26,7 @@ const initialState = {
 
 const RegistrationForm = () => {
     const dispatch = useDispatch();
+    // const navigate = useNavigate()
 
     const handleSubmit = (values, {resetForm})=>{
               
@@ -34,6 +36,7 @@ const RegistrationForm = () => {
            password: values.password
         }));
         resetForm();
+        // navigate('/login')
     }
 
   return (
