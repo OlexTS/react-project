@@ -7,11 +7,12 @@ const SearchBox = () => {
   const value = useSelector(selectFilter);
   return (
     <>
-      <label htmlFor="filter">Find contacts by name</label>
+      <label htmlFor="filter">Find contacts by name or number</label>
       <input
         type="text"
         value={value}
         onChange={(event) => dispatch(setFilter(event.target.value))}
+        placeholder="Search by name or number"
       />
     </>
   );
