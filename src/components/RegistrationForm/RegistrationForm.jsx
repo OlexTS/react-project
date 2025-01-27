@@ -1,8 +1,9 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { register } from "../../redux/auth/authOps";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name field is required"),
@@ -25,22 +26,35 @@ const initialState = {
 };
 
 const RegistrationForm = () => {
-    const dispatch = useDispatch();
-    // const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleSubmit = (values, {resetForm})=>{
-              
-        dispatch(register({
-           name: values.name,
-           email: values.email,
-           password: values.password
-        }));
-        resetForm();
-        // navigate('/login')
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const result = await dispatch(
+        register({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        })
+      );
+      if (result.error) {
+        return toast.error("Registration failed. Please try again");
+      }
+
+      resetForm();
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
     }
+  };
 
   return (
-    <Formik initialValues={initialState} validationSchema={validationSchema} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialState}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
       <Form>
         <label>
           Name
