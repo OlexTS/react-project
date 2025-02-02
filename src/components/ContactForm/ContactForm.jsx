@@ -8,10 +8,15 @@ import { selectContacts } from "../../redux/contacts/selectors";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
+  .trim()
     .min(3, "Your name is too short")
     .max(30, "Your name is too long")
     .required("This option is required"),
-  number: Yup.number("This fild must be a number type").required("Required"),
+  number: Yup.string()
+  .matches(/^\d+$/, "Number must contain only digits")
+  .min(6, "Too short for a phone number")
+  .max(15, "Too long for a phone number")
+  .required("This field is required"),
 });
 
 const ContactForm = () => {
@@ -25,14 +30,19 @@ const ContactForm = () => {
     number: "",
   };
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = async (values, actions) => {
     if (contacts.some((contact) => contact.name === values.name)) {
       toast.error(`${values.name} is already in your contacts`);
       return;
     }
 
-    dispatch(addContact(values));
+    try {
+     await dispatch(addContact(values));
+    toast.success('Contact successfully added to your book')
     actions.resetForm();
+    } catch (error) {
+      toast.error("Failed to add contact");
+    }
   };
   return (
     <Formik

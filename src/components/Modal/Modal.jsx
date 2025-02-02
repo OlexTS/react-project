@@ -1,8 +1,7 @@
-import css from './Modal.module.css'
+import css from "./Modal.module.css";
 
-
-const Modal = ({isOpen, onClose, onConfirm}) => {
-    if(!isOpen) return null
+const Modal = ({ isOpen, onClose, onConfirm }) => {
+  if (!isOpen) return null;
   return (
     <div className={css.overlayStyles} onClick={onClose}>
       <div className={css.modalStyles} onClick={(e) => e.stopPropagation()}>
@@ -11,7 +10,7 @@ const Modal = ({isOpen, onClose, onConfirm}) => {
         <button onClick={onClose}>Скасувати</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;
