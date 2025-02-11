@@ -2,12 +2,15 @@ import css from "./Modal.module.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-// import Modal from '@mui/material/Modal';
+import Backdrop from '@mui/material/Backdrop';
 
 const Modal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
   return (
-    <div className={css.overlayStyles} onClick={onClose}>
+    <Backdrop
+    sx={(theme) => ({ zIndex: theme.zIndex.drawer + 1 })}
+    open={isOpen}
+    onClick={onClose}>
       <div className={css.modalStyles} onClick={(e) => e.stopPropagation()}>
         <Box
           sx={{
@@ -34,7 +37,7 @@ const Modal = ({ isOpen, onClose, onConfirm }) => {
           <Button onClick={onClose}>Скасувати</Button>
         </Box>
       </div>
-    </div>
+    </Backdrop>
   );
 };
 
