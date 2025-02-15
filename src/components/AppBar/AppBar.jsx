@@ -1,15 +1,18 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
 import useAuth from "../../hooks/useAuth";
 import AuthNav from "../AuthNav/AuthNav";
 import Navigation from "../Navigation/Navigation";
 import UserMenu from "../UserMenu/UserMenu";
 import CustomAppBar from "@mui/material/AppBar";
-import {Box, Toolbar, Typography, Container} from "@mui/material";
+import { Box, Toolbar, Typography, Container, IconButton } from "@mui/material";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-
+import { ThemeContext } from "../../theme/themeContext";
+import { Brightness4, Brightness7 } from "@mui/icons-material";
 
 const AppBar = () => {
   const { isLoggedIn } = useAuth();
+  const { isDarkMode, toggleMode } = useContext(ThemeContext);
   return (
     <CustomAppBar position="static">
       <Container maxWidth="xl">
@@ -33,7 +36,16 @@ const AppBar = () => {
             PHONEBOOK
           </Typography>
           <Navigation />
-          {isLoggedIn ? <Box sx={{ marginLeft: "auto" }}><UserMenu /></Box> : <AuthNav />}
+          {isLoggedIn ? (
+            <Box sx={{ marginLeft: "auto" }}>
+              <UserMenu />
+            </Box>
+          ) : (
+            <AuthNav />
+          )}
+          <IconButton onClick={toggleMode} color="inherit">
+            {isDarkMode ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
         </Toolbar>
       </Container>
     </CustomAppBar>
