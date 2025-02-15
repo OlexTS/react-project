@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { register } from "../../redux/auth/authOps";
 import toast from "react-hot-toast";
+import { TextField, Button, Box, Typography } from "@mui/material";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name field is required"),
@@ -55,24 +56,63 @@ const RegistrationForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form>
-        <label>
-          Name
-          <Field type="text" name="name" />
-          <ErrorMessage name="name" />
-        </label>
-        <label>
-          Email
-          <Field type="email" name="email" />
-          <ErrorMessage name="email" />
-        </label>
-        <label>
-          Password
-          <Field type="password" name="password" />
-          <ErrorMessage name="password" />
-        </label>
-        <button type="submit">Register</button>
-      </Form>
+      {({ values, errors, touched, handleChange, handleBlur }) => (
+        <Box
+          component={Form}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            maxWidth: 400,
+            mx: "auto",
+            mt: 4,
+            p: 3,
+            boxShadow: 3,
+            borderRadius: 2,
+            bgcolor: "background.paper",
+          }}
+        >
+          <Typography variant="h5" textAlign="center">
+            Registration
+          </Typography>
+          <TextField
+            label="Name"
+            name="name"
+            variant="outlined"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.name && Boolean(errors.name)}
+            helperText={<ErrorMessage name="name" />}
+            fullWidth
+          />
+          <TextField
+            label="Email"
+            name="email"
+            variant="outlined"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.name && Boolean(errors.email)}
+            helperText={<ErrorMessage name="email" />}
+            fullWidth
+          />
+          <TextField
+            label="Password"
+            name="password"
+            variant="outlined"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.name && Boolean(errors.password)}
+            helperText={<ErrorMessage name="password" />}
+            fullWidth
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Register
+          </Button>
+        </Box>
+      )}
     </Formik>
   );
 };
