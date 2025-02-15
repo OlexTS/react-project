@@ -1,10 +1,12 @@
-import { Field, Form, Formik, ErrorMessage } from "formik";
+import { Form, Formik, ErrorMessage } from "formik";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { register } from "../../redux/auth/authOps";
 import toast from "react-hot-toast";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import { TextField, Button, Box, Typography, IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name field is required"),
@@ -27,8 +29,13 @@ const initialState = {
 };
 
 const RegistrationForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
@@ -93,7 +100,7 @@ const RegistrationForm = () => {
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.name && Boolean(errors.email)}
+            error={touched.email && Boolean(errors.email)}
             helperText={<ErrorMessage name="email" />}
             fullWidth
           />
@@ -101,12 +108,24 @@ const RegistrationForm = () => {
             label="Password"
             name="password"
             variant="outlined"
+            type={showPassword ? "text" : "password"}
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.name && Boolean(errors.password)}
+            error={touched.password && Boolean(errors.password)}
             helperText={<ErrorMessage name="password" />}
             fullWidth
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={toggleShowPassword} edge="end">
+                      {showPassword ? <Visibility/> : <VisibilityOff/>}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
           <Button type="submit" variant="contained" color="primary">
             Register

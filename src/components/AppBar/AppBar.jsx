@@ -4,11 +4,9 @@ import AuthNav from "../AuthNav/AuthNav";
 import Navigation from "../Navigation/Navigation";
 import UserMenu from "../UserMenu/UserMenu";
 import CustomAppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import {Box, Toolbar, Typography, Container} from "@mui/material";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+
 
 const AppBar = () => {
   const { isLoggedIn } = useAuth();
