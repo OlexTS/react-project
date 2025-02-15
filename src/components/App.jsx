@@ -11,6 +11,7 @@ import useAuth from "../hooks/useAuth";
 import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
 import { Toaster } from "react-hot-toast";
+import { Box } from "@mui/material";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +21,13 @@ function App() {
     dispatch(refreshUser());
   }, [dispatch]);
   return (
-    <>
+    <Box sx={{
+      minHeight: '100vh',
+      backgroundImage: "url('/images/pexels-tirachard-kumtanom-112571-733857.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+
+    }}>
     <Toaster/>
       {!isRefreshing && (
         <Routes>
@@ -56,7 +63,7 @@ function App() {
           </Route>
         </Routes>
       )}
-    </>
+    </Box>
   );
 }
 
