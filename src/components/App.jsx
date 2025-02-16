@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
@@ -12,10 +12,12 @@ import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
 import { Toaster } from "react-hot-toast";
 import { Box } from "@mui/material";
+import { ThemeContext } from "../theme/themeContext";
 
 function App() {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
+  const {isDarkMode} = useContext(ThemeContext)
   
   useEffect(() => {
     dispatch(refreshUser());
@@ -23,7 +25,11 @@ function App() {
   return (
     <Box sx={{
       minHeight: '100vh',
-      backgroundImage: "url('/images/pexels-tirachard-kumtanom-112571-733857.jpg')",
+      backgroundImage: `url(${
+      isDarkMode
+        ? "/images/blue-smooth-wall-textured-background.jpg"
+        : "/images/pexels-tirachard-kumtanom-112571-733857.jpg"
+    })`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
 
