@@ -1,14 +1,15 @@
 import { useSelector } from "react-redux";
 import Contact from "../Contact/Contact";
 import { selectFilteredContacts } from "../../redux/filters/selectors";
+import List from '@mui/material/List';
 
 const ContactList = () => {
   const contacts = useSelector(selectFilteredContacts);
 
   return (
-    <ul>
+    <List>
       <Contact contacts={contacts} />
-    </ul>
+    </List>
   );
 };
 

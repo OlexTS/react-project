@@ -5,18 +5,26 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/contacts/contactsOps";
 import { selectContacts } from "../../redux/contacts/selectors";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
-  .trim()
+    .trim()
     .min(3, "Your name is too short")
     .max(30, "Your name is too long")
     .required("This option is required"),
   number: Yup.string()
-  .matches(/^\d+$/, "Number must contain only digits")
-  .min(6, "Too short for a phone number")
-  .max(15, "Too long for a phone number")
-  .required("This field is required"),
+    .matches(/^\d+$/, "Number must contain only digits")
+    .min(6, "Too short for a phone number")
+    .max(15, "Too long for a phone number")
+    .required("This field is required"),
 });
 
 const ContactForm = () => {
@@ -37,9 +45,9 @@ const ContactForm = () => {
     }
 
     try {
-     await dispatch(addContact(values));
-    toast.success('Contact successfully added to your book')
-    actions.resetForm();
+      await dispatch(addContact(values));
+      toast.success("Contact successfully added to your book");
+      actions.resetForm();
     } catch (error) {
       toast.error("Failed to add contact");
     }
@@ -50,21 +58,45 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
       validationSchema={ContactSchema}
     >
-      <Form>
-        <div>
-          <label htmlFor={nameId}>Name</label>
-          <Field type="text" name="name" id={nameId} />
-          <ErrorMessage name="name" component="span" />
-        </div>
-
-        <div>
-          <label htmlFor={numberId}>Number</label>
-          <Field type="text" name="number" id={numberId} />
-          <ErrorMessage name="number" component="span" />
-        </div>
-
-        <button type="submit">Submit</button>
-      </Form>
+      {({values, errors, touched, handleChange, handleBlur }) => (
+        <Box
+          component={Form}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            maxWidth: 500,
+            mx: "auto",
+            mt: 4,
+            p: 3,
+            
+          }}
+        >
+          <TextField
+            label="Name"
+            name="name"
+            variant="outlined"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.name && Boolean(errors.name)}
+            helperText={touched.name && errors.name}
+          />
+          <TextField
+            label="Number"
+            name="number"
+            variant="outlined"
+            value={values.number}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.number && Boolean(errors.number)}
+            helperText={touched.number && errors.number}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Add contact
+          </Button>
+        </Box>
+      )}
     </Formik>
   );
 };

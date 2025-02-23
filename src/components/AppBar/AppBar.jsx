@@ -16,7 +16,7 @@ const AppBar = () => {
   return (
     <CustomAppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters >
           <MenuBookIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -36,6 +36,7 @@ const AppBar = () => {
             PHONEBOOK
           </Typography>
           <Navigation />
+          <Box sx={{marginLeft: 'auto', display: 'flex', alignItems: 'center'}}>
           {isLoggedIn ? (
             <Box sx={{ marginLeft: "auto" }}>
               <UserMenu />
@@ -43,9 +44,9 @@ const AppBar = () => {
           ) : (
             <AuthNav />
           )}
-          <IconButton onClick={toggleMode} color="inherit">
+          <IconButton onClick={toggleMode} color="inherit" sx={{marginLeft: '5px'}} >
             {isDarkMode ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+          </IconButton></Box>
         </Toolbar>
       </Container>
     </CustomAppBar>
