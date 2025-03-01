@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteContact, fetchContacts, updateContact } from "../../redux/contacts/contactsOps";
-import Modal from "../Modal/Modal";
 import toast from "react-hot-toast";
+import {
+  deleteContact,
 
-const Contact = ({ contacts }) => {
+  updateContact,
+} from "../../redux/contacts/contactsOps";
+import Modal from "../Modal/Modal";
+import {  Button, Typography } from "@mui/material";
+
+
+const Contact = ({ contact }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
   const dispatch = useDispatch();
-
-  useEffect(()=>{
-    dispatch(fetchContacts())
-  }, [dispatch])
 
   const handleDeleteClick = (id) => {
     setSelectedId(id);
@@ -55,44 +57,38 @@ const Contact = ({ contacts }) => {
 
   return (
     <>
-      {contacts.map((contact) => (
-        <li key={contact.id}>
-          {isEdit && selectedContact?.id === contact.id ? (
-            <div>
-              <input
-                name="name"
-                type="text"
-                onChange={handleChange}
-                value={selectedContact.name}
-              />
+      {isEdit && selectedContact?.id === contact.id ? (
+        <div>
+          <input
+            name="name"
+            type="text"
+            onChange={handleChange}
+            value={selectedContact.name}
+          />
 
-              <input
-                name="number"
-                type="text"
-                onChange={handleChange}
-                value={selectedContact.number}
-              />
-              <button onClick={handleSaveEdit}>Save</button>
-              <button onClick={() => setIsEdit(false)}>Cancel</button>
-            </div>
-          ) : (
-            <div>
-              <p>{contact.name}</p>
-              <p>{contact.number}</p>
+          <input
+            name="number"
+            type="text"
+            onChange={handleChange}
+            value={selectedContact.number}
+          />
+          <Button onClick={handleSaveEdit}>Save</Button>
+          <Button onClick={() => setIsEdit(false)}>Cancel</Button>
+        </div>
+      ) : (
+        <div>
+          <Typography variant="h5" component="div">{contact.name}</Typography>
+          <Typography  variant="body2" color="text.secondary">{contact.number}</Typography>
 
-              <button type="button" onClick={() => handleEditClick(contact)}>
-                Edit
-              </button>
-              <button
-                type="button"
-                onClick={() => handleDeleteClick(contact.id)}
-              >
-                Delete
-              </button>
-            </div>
-          )}
-        </li>
-      ))}
+          <Button type="button" onClick={() => handleEditClick(contact)}>
+            Edit
+          </Button>
+          <Button type="button" onClick={() => handleDeleteClick(contact.id)}>
+            Delete
+          </Button>
+        </div>
+      )}
+
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
