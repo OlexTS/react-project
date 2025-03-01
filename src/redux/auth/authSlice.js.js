@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { login, logout, refreshUser, register } from "./authOps";
 
+const tokenFromSession = sessionStorage.getItem('token')
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -8,7 +10,7 @@ const authSlice = createSlice({
       name: null,
       email: null,
     },
-    token: null,
+    token: tokenFromSession || null,
     isLoggedIn: false,
     isRefreshing: false,
   },

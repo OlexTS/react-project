@@ -6,10 +6,12 @@ axios.defaults.baseURL = "https://connections-api.goit.global/";
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  sessionStorage.setItem("token", token);
 };
 
 const removeAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
+  sessionStorage.removeItem("token");
 };
 
 export const register = createAsyncThunk(
@@ -49,7 +51,7 @@ export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+    const persistedToken = state.auth.token || sessionStorage.getItem('token');
     if (!persistedToken) {
       return thunkAPI.rejectWithValue("User is not login");
     }

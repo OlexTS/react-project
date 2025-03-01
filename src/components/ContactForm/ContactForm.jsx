@@ -1,18 +1,10 @@
-import { useId } from "react";
-import { Field, Form, Formik, ErrorMessage } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/contacts/contactsOps";
 import { selectContacts } from "../../redux/contacts/selectors";
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  InputAdornment,
-  IconButton,
-} from "@mui/material";
+import { TextField, Button, Box, Typography } from "@mui/material";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -28,8 +20,6 @@ const ContactSchema = Yup.object().shape({
 });
 
 const ContactForm = () => {
-  const nameId = useId();
-  const numberId = useId();
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
@@ -58,7 +48,7 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
       validationSchema={ContactSchema}
     >
-      {({values, errors, touched, handleChange, handleBlur }) => (
+      {({ values, errors, touched, handleChange, handleBlur }) => (
         <Box
           component={Form}
           sx={{
@@ -69,9 +59,11 @@ const ContactForm = () => {
             mx: "auto",
             mt: 4,
             p: 3,
-            
           }}
         >
+          <Typography variant="h5" textAlign="center">
+            Contacts
+          </Typography>
           <TextField
             label="Name"
             name="name"
