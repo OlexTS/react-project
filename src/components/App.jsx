@@ -1,11 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, lazy } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "../pages/HomePage";
-import RegistrationPage from "../pages/RegistrationPage";
+// import HomePage from "../pages/HomePage";
+// import RegistrationPage from "../pages/RegistrationPage";
 import Layout from "./Layout/Layout";
-import LoginPage from "../pages/LoginPage";
-import ContactsPage from "../pages/ContactsPage";
+// import LoginPage from "../pages/LoginPage";
+// import ContactsPage from "../pages/ContactsPage";
 import { refreshUser } from "../redux/auth/authOps";
 import useAuth from "../hooks/useAuth";
 import PrivateRoute from "./PrivateRoute";
@@ -14,27 +14,33 @@ import { Toaster } from "react-hot-toast";
 import { Box } from "@mui/material";
 import { ThemeContext } from "../theme/themeContext";
 
+const HomePage = lazy(()=>import('../pages/HomePage'));
+const RegistrationPage = lazy(()=>import('../pages/RegistrationPage'));
+const LoginPage = lazy(()=>import('../pages/LoginPage'));
+const ContactsPage = lazy(()=>import('../pages/ContactsPage'));
+
 function App() {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
-  const {isDarkMode} = useContext(ThemeContext)
-  
+  const { isDarkMode } = useContext(ThemeContext);
+
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
   return (
-    <Box sx={{
-      minHeight: '100vh',
-      backgroundImage: `url(${
-      isDarkMode
-        ? "/images/blue-smooth-wall-textured-background.jpg"
-        : "/images/pexels-tirachard-kumtanom-112571-733857.jpg"
-    })`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-
-    }}>
-    <Toaster/>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundImage: `url(${
+          isDarkMode
+            ? "/images/blue-smooth-wall-textured-background.jpg"
+            : "/images/pexels-tirachard-kumtanom-112571-733857.jpg"
+        })`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <Toaster />
       {!isRefreshing && (
         <Routes>
           <Route path="/" element={<Layout />}>
